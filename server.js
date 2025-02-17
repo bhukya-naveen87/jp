@@ -8,6 +8,7 @@ const app = express();
 const imageFolder = path.join(__dirname, 'uploads/images');
 const videoFolder = path.join(__dirname, 'uploads/videos');
 
+
 // Ensure the folders exist
 if (!fs.existsSync(imageFolder)) {
   fs.mkdirSync(imageFolder, { recursive: true });
@@ -41,6 +42,7 @@ const upload = multer({ storage });
 
 // Serve static files (images and videos)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static('public'));
 
 // Route for uploading files
 app.post('/upload', upload.single('file'), (req, res) => {
@@ -91,11 +93,14 @@ app.get('/videos', (req, res) => {
 });
 
 app.get("/admin", async (req,res)=>{
-  res.sendFile(path.join(__dirname, 'admin.html'))
+  res.sendFile(path.join(__dirname, 'views/admin.html'))
 })
 
 app.get("/", async (req,res)=>{
-  res.sendFile(path.join(__dirname, 'users.html'))
+  res.sendFile(path.join(__dirname, 'views/users.html'))
+})
+app.get("/user", async (req,res)=>{
+  res.sendFile(path.join(__dirname, 'views/user.html'))
 })
 
 const PORT = process.env.PORT || 3000;

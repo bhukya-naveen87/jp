@@ -1,0 +1,39 @@
+.logo-div {
+    border: 1px solid;
+    border-radius: 50%;
+    width: 84px;
+    height: 84px;
+    text-align: center;
+}
+
+.logo-div span {
+    font-size: -webkit-xxx-large;
+    font-family: cursive;
+    display: inline-block;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 40vw;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#videoCarousel .delete-btn {
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: darkred;
+}
