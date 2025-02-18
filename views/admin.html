@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
 
     <form id="uploadForm">
       <input type="file" id="fileInput" name="file" class="form-control mb-3" accept="image/*,video/*" required>
-      <button type="submit" class="btn btn-primary">Upload</button>
+      <button type="submit" class="btn btn-primary" id="upload-btn">Upload</button>
     </form>
     <div class="container mt-5">
       <ul class="nav nav-tabs" id="mediaTabs">
@@ -60,12 +60,24 @@
 
 
   <script>
+    const uploadBtn = document.getElementById("upload-btn");
+    uploadBtn.disabled = true;
+    const fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener("change", ()=>{
+      const file = fileInput.files[0];
+      if(!file){
+        uploadBtn.disabled = true;
+      }else{
+        uploadBtn.disabled = false;
+      }
+    })
     document.getElementById('uploadForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const formData = new FormData();
       const fileInput = document.getElementById('fileInput');
       const file = fileInput.files[0];
+      uploadBtn.textContent = "Uploading..."
 
       if (!file) {
         document.getElementById('message').textContent = 'Please select a file!';
@@ -73,7 +85,6 @@
       }
 
       formData.append('file', file);
-
       fetch('/upload', {
         method: 'POST',
         body: formData
@@ -84,8 +95,9 @@
 
           // After successful upload, reset the file input field
           fileInput.value = '';  // This removes the file name from the input field
-
           // Optionally, update the carousel or video section
+          uploadBtn.textContent = "Upload"
+          uploadBtn.disabled = true;
           updateCarousel();
         })
         .catch(error => {
