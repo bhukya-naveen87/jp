@@ -1,8 +1,8 @@
 .logo-div {
-    border: 1px solid;
-    border-radius: 50%;
+    /* border: 1px solid;
+    border-radius: 50%; */
     width: 84px;
-    height: 84px;
+    /* height: 84px; */
     text-align: center;
 }
 
@@ -36,4 +36,8 @@
 
 .delete-btn:hover {
     background: darkred;
+}
+
+.container-fluid{
+    height: 50px !important;
 }

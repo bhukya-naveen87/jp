@@ -4,48 +4,572 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jagan's Photography</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <title>Jagan's Photgraphy</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #top-container {
+            background-image: url(/images/bg.JPG);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            height: 100vh;
+        }
+
+        #birthday,
+        #events,
+        #wedding,
+        #half-saree {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #birthday {
+            background-image: url(/images/bday1.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #events {
+            background-image: url(/images/events.png);
+        }
+
+        #wedding {
+            background-image: url(/images/wedding.png);
+        }
+
+        #half-saree {
+            background-image: url(/images/half-saree.png);
+        }
+
+        #navbar {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 35px;
+            font-size: large;
+            font-family: "Audiowide", serif;
+            color: #0000006e;
+        }
+
+        #navbar div {
+            cursor: pointer;
+        }
+
+        #top-container #contact-top {
+            border: 1px solid #fff7f7;
+            position: absolute;
+            right: -5px;
+            top: 200px;
+            width: 250px;
+            transform: rotate(90deg);
+        }
+
+        #icons {
+            position: absolute;
+            right: 96px;
+            top: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #top-container #contact-bottom {
+            border: 1px solid #fff7f7;
+            position: absolute;
+            right: -5px;
+            top: 600px;
+            width: 250px;
+            transform: rotate(90deg);
+        }
+
+        .font-text-style {
+            font-family: "Audiowide", serif;
+            color: #0000006e;
+        }
+
+        .btn-text {
+            font-family: "Audiowide", serif;
+            color: #0000006e;
+            cursor: pointer;
+            border: 1px solid #0000006e;
+            padding: 10px;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+
+        .div-text {
+            font-family: "Audiowide", serif;
+            color: #0000006e;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        #top-container #contact-btn {
+            position: absolute;
+            bottom: 300px;
+            left: 8vw;
+        }
+
+        #statics {
+            display: flex;
+            gap: 30px;
+            position: absolute;
+            bottom: 100px;
+            left: 8vw;
+        }
+
+        .static-count {
+            text-align: center;
+        }
+
+        #portfolio {
+            width: 100vw;
+            height: 90vh;
+        }
+
+        #contact {
+            width: 100vw;
+            height: 30vh;
+            font-family: "Audiowide", serif;
+            color: #0000006e;
+        }
+
+        #portfolio #heading,
+        #contact #heading {
+            width: 90vw;
+            margin: auto;
+            margin-top: 15vh;
+            font-size: xx-large;
+            font-family: "Audiowide", serif;
+            color: #0000006e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .heading-line {
+            width: 70vw;
+            height: 3px;
+            background-color: #0000006e;
+            border: 1px solid none;
+        }
+
+        #portfolio-content {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 100px;
+            position: relative;
+            flex-wrap: wrap;
+            /* Allow items to wrap for smaller screens */
+        }
+
+        .each-portfolio {
+            border: 1px solid #0000006e;
+            height: 50vh;
+            width: 20vw;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .each-portfolio:hover {
+            scale: 1.05;
+            transition: 1000ms;
+        }
+
+        .portfolio-title {
+            background-color: rgba(0, 0, 0, 0.8);
+            position: absolute;
+            text-align: center;
+            border-top: 0.5px solid #0000006e;
+            border-bottom: 0.5px solid #0000006e;
+            width: 19.9vw;
+            padding: 10px 0;
+            bottom: 10%;
+            color: white;
+        }
+
+        .card {
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
+
+        .card:nth-child(1),
+        .card:nth-child(2) {
+            transform-origin: left;
+        }
+
+        .card:nth-child(3),
+        .card:nth-child(4) {
+            transform-origin: right;
+        }
+
+        .fade-left {
+            transform: translateX(-200px);
+            opacity: 0;
+        }
+
+        .fade-right {
+            transform: translateX(200px);
+            opacity: 0;
+        }
+
+        .selected-data {
+            display: flex;
+            width: 90vw;
+            margin: auto;
+            margin-top: 5vh;
+            font-size: large;
+            font-family: "Audiowide", serif;
+            color: #0000006e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .each-img {
+            width: 50vw !important;
+            margin: auto !important;
+            height: 60vh;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            color: #0000006e;
+            background-color: #0000006e;
+        }
+
+        .page-title {
+            font-weight: bolder;
+            font-family: cursive;
+            font-size: xx-large;
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 1200px) {
+            #portfolio-content {
+                justify-content: space-between;
+            }
+
+            .each-portfolio {
+                width: 30vw;
+            }
+
+            .selected-data {
+                flex-direction: column;
+            }
+
+            .each-img {
+                width: 90vw !important;
+                height: 50vh;
+            }
+
+            #navbar {
+                flex-direction: column;
+                align-items: center;
+                padding-top: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #portfolio-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .each-portfolio {
+                width: 80vw;
+            }
+
+            .selected-data {
+                flex-direction: column;
+            }
+
+            .each-img {
+                width: 90vw !important;
+                height: 50vh;
+            }
+
+            #navbar {
+                flex-direction: column;
+                font-size: medium;
+            }
+
+            #statics {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #navbar {
+                font-size: small;
+            }
+
+            .each-portfolio {
+                width: 90vw;
+                margin-bottom: 10px;
+            }
+
+            .each-img {
+                width: 90vw !important;
+                height: 45vh;
+            }
+
+            .selected-data {
+                flex-direction: column;
+                font-size: medium;
+            }
+
+            .card {
+                transform-origin: center;
+            }
+
+            .fade-left,
+            .fade-right {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-                <div class="logo-div">
-                    <span>J</span>
-                    <span>p</span>
+    <div id="top-container">
+        <div id="navbar">
+            <div> <a href="#portfolio" class="div-text">
+                    PORTFOLIO
+                </a></div>
+            <div></div>
+            <div class="page-title">Jagan's Photogrpahy</div>
+            <div></div>
+            <div>CONTACTS</div>
+        </div>
+        <a type="button" class="btn-text" id="contact-btn" href="#contact">
+            CONTACT
+        </a>
+
+        <div id="statics" class="font-text-style">
+            <div id="experience">
+                <div class="static-count" id="experience-count">
                 </div>
+                <div>
+                    EXPERIENCE
+                </div>
+            </div>
+            <div id="clients">
+                <div class="static-count" id="client-count">
+                </div>
+                <div>
+                    CLIENTS
+                </div>
+            </div>
+            <div id="photoshoots">
+                <div class="static-count" id="photoshoots-count">
+                </div>
+                <div>
+                    PHOTOSHOOTS
+                </div>
+            </div>
+        </div>
+
+        <div id="contact-top"></div>
+        <div id="icons">
+            <a href="https://www.instagram.com/korebelli?igsh=NThhdTRhOW9laGN1" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+                    <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899"
+                        gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#fd5" />
+                        <stop offset=".328" stop-color="#ff543f" />
+                        <stop offset=".348" stop-color="#fc5245" />
+                        <stop offset=".504" stop-color="#e64771" />
+                        <stop offset=".643" stop-color="#d53e91" />
+                        <stop offset=".761" stop-color="#cc39a4" />
+                        <stop offset=".841" stop-color="#c837ab" />
+                    </radialGradient>
+                    <path fill="url(#yOrnnhliCrdS2gy~4tD8ma)"
+                        d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+                    <radialGradient id="yOrnnhliCrdS2gy~4tD8mb" cx="11.786" cy="5.54" r="29.813"
+                        gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#4168c9" />
+                        <stop offset=".999" stop-color="#4168c9" stop-opacity="0" />
+                    </radialGradient>
+                    <path fill="url(#yOrnnhliCrdS2gy~4tD8mb)"
+                        d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+                    <path fill="#fff"
+                        d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z" />
+                    <circle cx="31.5" cy="16.5" r="1.5" fill="#fff" />
+                    <path fill="#fff"
+                        d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z" />
+                </svg>
+            </a>
+            <a href="https://www.youtube.com/@j.nphotography7945" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+                    <path fill="#FF3D00"
+                        d="M43.2,33.9c-0.4,2.1-2.1,3.7-4.2,4c-3.3,0.5-8.8,1.1-15,1.1c-6.1,0-11.6-0.6-15-1.1c-2.1-0.3-3.8-1.9-4.2-4C4.4,31.6,4,28.2,4,24c0-4.2,0.4-7.6,0.8-9.9c0.4-2.1,2.1-3.7,4.2-4C12.3,9.6,17.8,9,24,9c6.2,0,11.6,0.6,15,1.1c2.1,0.3,3.8,1.9,4.2,4c0.4,2.3,0.9,5.7,0.9,9.9C44,28.2,43.6,31.6,43.2,33.9z" />
+                    <path fill="#FFF" d="M20 31L20 17 32 24z" />
+                </svg>
             </a>
         </div>
-    </nav>
-
-    <div class="container mt-5">
-        <ul class="nav nav-tabs" id="mediaTabs">
-            <li class="nav-item">
-                <a class="nav-link active" id="images-tab" data-bs-toggle="tab" href="#imagesCarousel">Images</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="videos-tab" data-bs-toggle="tab" href="#videosCarousel">Videos</a>
-            </li>
-        </ul>
-
-        <div class="tab-content mt-3">
-            <div class="tab-pane fade show active" id="imagesCarousel"></div>
-            <div class="tab-pane fade" id="videosCarousel"></div>
+        <div id="contact-bottom"></div>
+    </div>
+    <div id="portfolio">
+        <div id="heading">
+            <div id="title">PORTFOLIO</div>
+            <div class="heading-line"></div>
         </div>
+
+        <div class="selected-data">
+            <div id="selected-card"></div>
+            <button onclick="revertCards()" id="revert-back-btn">Back</button>
+        </div>
+
+        <div class="container mt-5" id="images-videos">
+            <ul class="nav nav-tabs" id="mediaTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="images-tab" data-bs-toggle="tab" href="#imagesCarousel">Images</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="videos-tab" data-bs-toggle="tab" href="#videosCarousel">Videos</a>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-3">
+                <div class="tab-pane fade show active" id="imagesCarousel"></div>
+                <div class="tab-pane fade" id="videosCarousel"></div>
+            </div>
+        </div>
+
+        <div id="portfolio-content" class="font-text-style">
+            <div id="wedding" class="each-portfolio card" onclick="animateCards(this)">
+                <div class="portfolio-title">WEDDING</div>
+            </div>
+            <div id="birthday" class="each-portfolio card" onclick="animateCards(this)">
+                <div class="portfolio-title">BIRTHDAY</div>
+
+            </div>
+            <div id="events" class="each-portfolio card" onclick="animateCards(this)">
+                <div class="portfolio-title">EVENTS</div>
+
+            </div>
+            <div id="half-saree" class="each-portfolio card" onclick="animateCards(this)">
+                <div class="portfolio-title">HALF-SAREE</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="wedding">
+
+    </div>
+    <div id="contact">
+        <div id="heading">
+            <div class="heading-line"></div>
+            <div id="title">Contact</div>
+        </div>
+
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+                    <!-- Contact Details -->
+                    <div class="col-md-6">
+                        <h5>Contact Us</h5>
+                        <p>Email: <a href="mailto:yourmail@example.com">yourmail@example.com</a></p>
+                        <p>Mobile: <a href="tel:+919876543210">+91 98765 43210</a></p>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="col-md-6">
+                        <h5>Follow Us</h5>
+                        <a href="https://www.instagram.com/korebelli?igsh=NThhdTRhOW9laGN1" target="_blank"
+                            class="me-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+                                <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop offset="0" stop-color="#fd5" />
+                                    <stop offset=".328" stop-color="#ff543f" />
+                                    <stop offset=".348" stop-color="#fc5245" />
+                                    <stop offset=".504" stop-color="#e64771" />
+                                    <stop offset=".643" stop-color="#d53e91" />
+                                    <stop offset=".761" stop-color="#cc39a4" />
+                                    <stop offset=".841" stop-color="#c837ab" />
+                                </radialGradient>
+                                <path fill="url(#yOrnnhliCrdS2gy~4tD8ma)"
+                                    d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+                                <radialGradient id="yOrnnhliCrdS2gy~4tD8mb" cx="11.786" cy="5.54" r="29.813"
+                                    gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0" stop-color="#4168c9" />
+                                    <stop offset=".999" stop-color="#4168c9" stop-opacity="0" />
+                                </radialGradient>
+                                <path fill="url(#yOrnnhliCrdS2gy~4tD8mb)"
+                                    d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z" />
+                                <path fill="#fff"
+                                    d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z" />
+                                <circle cx="31.5" cy="16.5" r="1.5" fill="#fff" />
+                                <path fill="#fff"
+                                    d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z" />
+                            </svg>
+                        </a> <br>
+                        <a href="https://www.youtube.com/@j.nphotography7945" target="_blank" class="me-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+                                <path fill="#FF3D00"
+                                    d="M43.2,33.9c-0.4,2.1-2.1,3.7-4.2,4c-3.3,0.5-8.8,1.1-15,1.1c-6.1,0-11.6-0.6-15-1.1c-2.1-0.3-3.8-1.9-4.2-4C4.4,31.6,4,28.2,4,24c0-4.2,0.4-7.6,0.8-9.9c0.4-2.1,2.1-3.7,4.2-4C12.3,9.6,17.8,9,24,9c6.2,0,11.6,0.6,15,1.1c2.1,0.3,3.8,1.9,4.2,4c0.4,2.3,0.9,5.7,0.9,9.9C44,28.2,43.6,31.6,43.2,33.9z" />
+                                <path fill="#FFF" d="M20 31L20 17 32 24z" />
+                            </svg>
+                        </a> <br>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 
 
     <script>
-        // Function to update the carousel (fetch images and videos from the server)
+        const expCount = 10;
+        const clientCount = 100;
+        const photoshootsCount = 500;
+        const timeCounter = 2000
+
+        function animateCounter(element, target, duration) {
+            let current = 0;
+            let step = Math.ceil(target / (duration / 10)); // Adjust step based on duration
+            let interval = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(interval);
+                }
+                element.innerHTML = `${current}+`;
+            }, 10); // Adjust interval speed for smoother animation
+        }
+
+        const expCountDiv = document.getElementById("experience-count");
+        const clientCountDiv = document.getElementById("client-count");
+        const photoCountDiv = document.getElementById("photoshoots-count");
+
+        animateCounter(expCountDiv, expCount, timeCounter); // 2 seconds duration
+        animateCounter(clientCountDiv, clientCount, timeCounter);
+        animateCounter(photoCountDiv, photoshootsCount, timeCounter);
+        const selectedCardDiv = document.getElementById("selected-card")
+
         function updateCarousel() {
-            Promise.all([fetch('/images'), fetch('/videos')])
+            Promise.all([fetch(`/images/${selectedCardDiv.innerHTML}`), fetch(`/videos/${selectedCardDiv.innerHTML}`)])
                 .then(responses => Promise.all(responses.map(response => response.json())))
                 .then(([imageFiles, videoFiles]) => {
                     const imagesCarouselContainer = document.getElementById('imagesCarousel');
@@ -77,42 +601,80 @@
 
                 if (type === 'image') {
                     items += `
-        <div class="carousel-item ${activeClass}">
-          <img src="/uploads/images/${file}" class="d-block w-100" alt="Image">
-        </div>`;
+                        <div class="carousel-item ${activeClass}">
+                        <img src="/uploads/images/${file}" class="d-block each-img" alt="Image">
+                        </div>`;
                 } else if (type === 'video') {
                     items += `
-        <div class="carousel-item ${activeClass}">
-          <video class="d-block w-100" controls>
-            <source src="/uploads/videos/${file}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>`;
+                        <div class="carousel-item ${activeClass}">
+                        <video class="d-block w-100 each-img" controls>
+                            <source src="/uploads/videos/${file}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        </div>`;
                 }
             });
 
             return `
-    <div id="${id}" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">${indicators}</div>
-      <div class="carousel-inner">${items}</div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#${id}" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#${id}" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>`;
+                <div id="${id}" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">${indicators}</div>
+                <div class="carousel-inner">${items}</div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#${id}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#${id}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                </div>`;
         }
 
         // Call the function on page load
-        document.addEventListener("DOMContentLoaded", updateCarousel);
 
-        updateCarousel()
+
+        const revertBtn = document.getElementById("revert-back-btn")
+        const imgVidCarousel = document.getElementById("images-videos")
+        revertBtn.style.display = "none"
+        imgVidCarousel.style.display = "none"
+        function animateCards(clickedCard) {
+            selectedCardDiv.innerHTML = clickedCard.id.toUpperCase()
+            let cards = document.querySelectorAll(".card");
+            revertBtn.style.display = ""
+            imgVidCarousel.style.display = ""
+
+            cards.forEach((card, index) => {
+                if (index < 2) {
+                    card.classList.add("fade-left");
+                } else {
+                    card.classList.add("fade-right");
+                }
+            });
+
+
+
+            setTimeout(() => {
+                updateCarousel();
+            }, 1000);
+        }
+
+        function revertCards() {
+            let cards = document.querySelectorAll(".card");
+            cards.forEach(card => {
+                card.classList.remove("fade-left", "fade-right");
+            });
+            selectedCardDiv.innerHTML = ""
+            revertBtn.style.display = "none"
+            imgVidCarousel.style.display = "none"
+            const imagesCarouselContainer = document.getElementById('imagesCarousel');
+            const videosCarouselContainer = document.getElementById('videosCarousel');
+            imagesCarouselContainer.innerHTML = ""
+            videosCarouselContainer.innerHTML = ""
+        }
+
+
     </script>
 
-    <!-- Bootstrap JS (optional, for carousel functionality) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

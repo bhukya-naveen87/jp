@@ -7,10 +7,22 @@
   <title>Jagan's Photography</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
+  <style>
+    .each-img{
+      width: 50vw !important;
+      margin: auto;
+    }
+
+    .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            color: #0000006e;
+            background-color: #0000006e;
+        }
+  </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light">
+  <nav class="bg-body-tertiary border-bottom navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,14 +46,32 @@
       </div>
     </div>
   </nav>
-  <div class="container mt-5">
+  <div class="container mt-2">
     <h1>Upload Image or Video</h1>
 
-    <form id="uploadForm">
-      <input type="file" id="fileInput" name="file" class="form-control mb-3" accept="image/*,video/*" required>
-      <button type="submit" class="btn btn-primary" id="upload-btn">Upload</button>
-    </form>
-    <div class="container mt-5">
+    <div class="d-flex gap-5">
+      <idv class="col-6">
+        <form id="uploadForm">
+          <input type="file" id="fileInput" name="file" class="form-control mb-3" accept="image/*,video/*" required>
+          <button type="submit" class="btn btn-primary" id="upload-btn">Upload</button>
+        </form>
+      </idv>
+      <div class="col-6">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Select Category
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#" onclick="selectCategory('Wedding')">Wedding</a></li>
+            <li><a class="dropdown-item" href="#" onclick="selectCategory('Birthday')">Birthday</a></li>
+            <li><a class="dropdown-item" href="#" onclick="selectCategory('Events')">Events</a></li>
+            <li><a class="dropdown-item" href="#" onclick="selectCategory('Half-Saree')">Half-Saree</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="mt-2">
       <ul class="nav nav-tabs" id="mediaTabs">
         <li class="nav-item">
           <a class="nav-link active" id="images-tab" data-bs-toggle="tab" href="#imagesCarousel">Images</a>
@@ -60,17 +90,29 @@
 
 
   <script>
+    const dropDownVal = document.getElementById('dropdownMenuButton')
     const uploadBtn = document.getElementById("upload-btn");
     uploadBtn.disabled = true;
     const fileInput = document.getElementById('fileInput');
-    fileInput.addEventListener("change", ()=>{
+    fileInput.addEventListener("change", () => {
       const file = fileInput.files[0];
-      if(!file){
+      if (!file || dropDownVal.innerText.trim() == "Select Category") {
         uploadBtn.disabled = true;
-      }else{
+      } else if (file && dropDownVal.innerText.trim() != "Select Category") {
         uploadBtn.disabled = false;
       }
     })
+
+    function selectCategory(value) {
+      // document.getElementById('selectedCategory').innerText = value;
+      dropDownVal.innerText = value; // Change button text
+      const file = fileInput.files[0];
+      if (!file || dropDownVal.innerText.trim() == "Select Category") {
+        uploadBtn.disabled = true;
+      } else if (file && dropDownVal.innerText.trim() != "Select Category") {
+        uploadBtn.disabled = false;
+      }
+    }
     document.getElementById('uploadForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -85,6 +127,7 @@
       }
 
       formData.append('file', file);
+      formData.append('category', dropDownVal.innerText.trim());
       fetch('/upload', {
         method: 'POST',
         body: formData
@@ -97,6 +140,7 @@
           fileInput.value = '';  // This removes the file name from the input field
           // Optionally, update the carousel or video section
           uploadBtn.textContent = "Upload"
+          dropDownVal.innerText = "Select Category"
           uploadBtn.disabled = true;
           updateCarousel();
         })
@@ -107,10 +151,12 @@
     });
 
     // Function to update the carousel (fetch images and videos from the server)
-    function updateCarousel() {
-      Promise.all([fetch('/images'), fetch('/videos')])
+    function updateCarousel(category = "all") {
+      // alert("all")
+      Promise.all([fetch(`/images/${category}`), fetch(`/videos/${category}`)])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(([imageFiles, videoFiles]) => {
+          // alert(imageFiles)
           const imagesCarouselContainer = document.getElementById('imagesCarousel');
           const videosCarouselContainer = document.getElementById('videosCarousel');
 
@@ -161,13 +207,13 @@
           items += `
         <div class="carousel-item ${activeClass} position-relative">
           ${deleteBtn}
-          <img src="${filePath}" class="d-block w-100" alt="Image">
+          <img src="${filePath}" class="d-block w-100 each-img" alt="Image">
         </div>`;
         } else if (type === 'video') {
           items += `
         <div class="carousel-item ${activeClass} position-relative">
           ${deleteBtn}
-          <video class="d-block w-100" controls>
+          <video class="d-block w-100 each-img" controls>
             <source src="${filePath}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -191,9 +237,9 @@
     }
 
     // Call the function on page load
-    document.addEventListener("DOMContentLoaded", updateCarousel);
-
-    updateCarousel()
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCarousel("all")
+    });
   </script>
 
   <!-- Bootstrap JS (optional, for carousel functionality) -->
